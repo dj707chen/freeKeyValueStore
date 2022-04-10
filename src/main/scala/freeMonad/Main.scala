@@ -14,7 +14,7 @@ object Main extends IOApp {
       )
 
     println(s"result=$result")
-    
+
     IO.unit.as(ExitCode.Success)
   }
 

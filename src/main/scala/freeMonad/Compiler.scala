@@ -9,6 +9,8 @@ object Compiler {
 
   // The program will crash if a key is not found,
   // or if a type is incorrectly specified.
+
+  // Same as
   // def impureCompiler: FunctionK[KVStoreOp, Id] = new FunctionK[KVStoreOp, Id] {
   def impureCompiler: KVStoreOp ~> Id = {
 
