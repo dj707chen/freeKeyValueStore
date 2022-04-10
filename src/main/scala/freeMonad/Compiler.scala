@@ -17,20 +17,18 @@ object Compiler {
 
     λ[KVStoreOp ~> Id] {
       case Put(key, value) =>
-        println(s"put($key, $value)")
         kvs(key) = value
-        ()
+        println(s"put($key, $value)")
       case Get(key) =>
         val value = kvs.get(key)
         println(s"get($key)=$value")
         value
       case Delete(key) =>
-        println(s"delete($key)")
         kvs.remove(key)
-        ()
+        println(s"delete($key)")
       case Clear() =>
-        println(s"clear")
         kvs.clear()
+        println(s"clear")
     }
   }
 }
