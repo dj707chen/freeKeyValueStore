@@ -5,7 +5,7 @@ import freeMonad.KVStoreFree._
 trait Program
 
 object Program {
-  def program: KVStoreFree[Option[Int]] =
+  def program: KVStoreFree[(Option[Int], Option[Int])] =
     /*
     put("wild-cats", 2).flatMap { _ =>
       update[Int]("wild-cats", _ + 12).flatMap { _ =>
@@ -30,10 +30,12 @@ object Program {
      */
 
     for {
-      _  <- put("wild-cats", 2)
-      _  <- update[Int]("wild-cats", _ + 12)
-      _  <- put("tame-cats", 5)
-      oi <- get[Int]("wild-cats")
-      _  <- delete("tame-cats")
-    } yield oi
+      _   <- put("wild-cats", 2)
+      _   <- update[Int]("wild-cats", _ + 12)
+      _   <- put("tame-cats", 5)
+      oi1 <- get[Int]("wild-cats")
+      _   <- clear()
+      oi2 <- get[Int]("wild-cats")
+      _   <- delete("tame-cats")
+    } yield (oi1, oi2)
 }

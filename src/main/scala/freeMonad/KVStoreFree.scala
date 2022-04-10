@@ -18,4 +18,6 @@ object KVStoreFree {
     vMaybe <- get[T](key)
     _      <- vMaybe.map(v => put[T](key, f(v))).getOrElse(Free.pure(()))
   } yield ()
+
+  def clear(): KVStoreFree[Unit] = liftF(Clear())
 }
