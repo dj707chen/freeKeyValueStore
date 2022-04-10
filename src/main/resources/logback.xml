@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="false" debug="false">
+    <variable name="APP_LOG_LEVEL" value="${APP_LOG_LEVEL:-ERROR}" />
+    <variable name="APP_LOG_APPENDER" value="${APP_LOG_APPENDER:-stdoutLogstash}" />
+    <variable name="APP_LOG_XML_LEVEL" value="${APP_LOG_XML_LEVEL:-DEBUG}" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%thread] %highlight(%-5level) %cyan(%logger{15}) - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- This is a Stdout Encoder For When we have Stdout Logging-->
+    <appender name="stdoutLogstash" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>
+                {
+                "app_name":"jx-configs",
+                "env" : {
+                "mesos_task_id": "${MESOS_TASK_ID}",
+                "marathon_app_id": "${MARATHON_APP_ID}",
+                "marathon_app_version": "${MARATHON_APP_VERSION}"
+                }
+                }
+            </customFields>
+        </encoder>
+    </appender>
+
+    <logger name="com.banno" level="info"/>
+    <logger name="org.http4s" level="info"/>
+
+    <!-- See https://github.com/http4s/http4s/pull/3534#issuecomment-650307545 for more details. -->
+    <logger name="org.http4s.server.message-failures" level="warn"/>
+    <logger name="org.http4s.server.service-errors" level="warn"/>
+
+    <root level="${APP_LOG_LEVEL}">
+        <appender-ref ref="${APP_LOG_APPENDER}"/>
+    </root>
+
+</configuration>
