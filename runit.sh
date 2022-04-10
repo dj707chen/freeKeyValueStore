@@ -25,14 +25,5 @@ function exit_shell {
 }
 trap exit_shell EXIT
 
-# Restored DB backup as "old"
-export OLD_DB_USER="jabberwocky"
-export OLD_DB_PASS="password"
-
-# Current prod data("postgres-jabberwocky0-az-centralus.production.banno-internal.com:5432"),
-# run the below command then copy from there
-#   pgJxConfig --show json
-export NEW_DB_USER="jabberwocky"
-export NEW_DB_PASS="password"
-
 sbt run
+
