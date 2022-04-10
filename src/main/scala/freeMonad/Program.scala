@@ -2,8 +2,8 @@ package freeMonad
 
 import freeMonad.KVStoreFree._
 
-trait Program
-
+/** Compose sequence of computation
+  */
 object Program {
   def program: KVStoreFree[(Option[Int], Option[Int])] =
     /*
