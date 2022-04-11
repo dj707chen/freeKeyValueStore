@@ -4,9 +4,10 @@ import freeMonad.KVStoreFree._
 
 /** Compose sequence of computation
   */
-object Program {
-  def program: KVStoreFree[(Option[Int], Option[Int])] =
-    /*
+object ProgramFree {
+  def programFree: KVStoreFree[(Option[Int], Option[Int])] = {
+
+    /* Play by calling flatMap explicitly
     put("wild-cats", 2).flatMap { _ =>
       update[Int]("wild-cats", _ + 12).flatMap { _ =>
         put("tame-cats", 5).flatMap { _ =>
@@ -38,4 +39,5 @@ object Program {
       oi2 <- get[Int]("wild-cats")
       _   <- delete("tame-cats")
     } yield (oi1, oi2)
+  }
 }

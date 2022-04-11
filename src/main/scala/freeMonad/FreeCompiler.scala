@@ -5,14 +5,14 @@ import cats.{Id, ~>}
 
 import scala.collection.mutable
 
-object Compiler {
+object FreeCompiler {
 
   // The program will crash if a key is not found,
   // or if a type is incorrectly specified.
 
   // Same as
   // def impureCompiler: FunctionK[KVStoreOp, Id] = new FunctionK[KVStoreOp, Id] {
-  def impureCompiler: KVStoreOp ~> Id = {
+  def compile: KVStoreOp ~> Id = {
 
     // A very simple (and imprecise) key-value store
     val kvs = mutable.Map.empty[String, Any]
