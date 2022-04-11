@@ -5,7 +5,7 @@ import freeMonad.KVStoreFree._
 /** Compose sequence of computation
   */
 object ProgramFree {
-  def programFree: KVStoreFree[(Option[Int], Option[Int])] = {
+  def generate: KVStoreFree[(Option[Int], Option[Int])] = {
 
     /* Play by calling flatMap explicitly
     put("wild-cats", 2).flatMap { _ =>
