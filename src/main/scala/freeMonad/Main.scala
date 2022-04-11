@@ -4,9 +4,9 @@ import cats.effect.{ExitCode, IO, IOApp}
 import freeMonad.FreeCompiler.compile
 import freeMonad.ProgramFree.programFree
 
-object Main extends IOApp {
+object Main {
 
-  override def run(args: List[String]): IO[ExitCode] = {
+  def main(args: Array[String]): Unit = {
 
     val result: (Option[Int], Option[Int]) =
       programFree.foldMap(
@@ -14,8 +14,6 @@ object Main extends IOApp {
       )
 
     println(s"result=$result")
-
-    IO.unit.as(ExitCode.Success)
   }
 
 }
