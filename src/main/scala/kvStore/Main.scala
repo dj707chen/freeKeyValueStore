@@ -1,13 +1,13 @@
-package freeMonad
+package kvStore
 
-import freeMonad.FreeCompiler.compile
+import kvStore.FreeCompiler.compile
 
 object Main {
 
   def main(args: Array[String]): Unit = {
 
     val result: (Option[Int], Option[Int]) =
-      ProgramFree.generate
+      ProgramFree.compose
         .foldMap(compile)
 
     println(s"ProgramFree result=$result")

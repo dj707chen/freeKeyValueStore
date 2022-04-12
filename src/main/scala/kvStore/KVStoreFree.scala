@@ -1,6 +1,7 @@
-package freeMonad
+package kvStore
 
-/**  Smart constructors of KVStoreFree from computation.
+/** Define KVStoreFree type alias and a smart constructor of KVStoreFree for each operation.
+  *  Refer https://github.com/tpolecat/doobie/blob/main/modules/free/src/main/scala/doobie/free/resultset.scala#L955
   */
 object KVStoreFree {
   import cats.free.Free

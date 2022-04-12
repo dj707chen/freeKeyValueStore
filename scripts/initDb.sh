@@ -25,5 +25,14 @@ function exit_shell {
 }
 trap exit_shell EXIT
 
-sbt run
+#SHELL_DIR=/Users/dj.chen/repoMy/freeKeyValueStore/scripts
+PG_CONTAINER=test-db-pg
+PG_DB_NAME=test_db
+PG_USER=tester
+docker cp "$SHELL_DIR/initDb.sql" $PG_CONTAINER:/initDb.sql
+docker exec -d $PG_CONTAINER psql --username=$PG_USER --dbname=$PG_DB_NAME --file=/initDb.sql
 
+#docker exec -it $PG_CONTAINER /bin/bash
+#docker exec -it $PG_CONTAINER psql --username=$PG_USER $PG_DB_NAME
+
+#psql --host=localhost --port 5432 --username=tester test_db -f initDb.sql

@@ -1,12 +1,18 @@
-package freeMonad
+package kvStore
 
-import freeMonad.KVStoreFree._
+import cats.implicits.catsSyntaxSemigroupal
+import kvStore.KVStoreFree._
 
-/** Compose sequence of computation
+/** Compose sequence of operations
   */
 object ProgramFree {
-  def generate: KVStoreFree[(Option[Int], Option[Int])] = {
 
+  /** Compose sequence of operations by flat mapping KVStoreFree instances
+    * which are first constructed from individual operations.
+    *
+    * @return KVStoreFree with type of the final value.
+    */
+  def compose: KVStoreFree[(Option[Int], Option[Int])] =
     /* Play by calling flatMap explicitly
     put("wild-cats", 2).flatMap { _ =>
       update[Int]("wild-cats", _ + 12).flatMap { _ =>
@@ -29,6 +35,7 @@ object ProgramFree {
       }
     }
      */
+    // (put("abc", 2) |@| update[Int]("def", _ + 12))
 
     for {
       _   <- put("wild-cats", 2)
@@ -39,5 +46,4 @@ object ProgramFree {
       oi2 <- get[Int]("wild-cats")
       _   <- delete("tame-cats")
     } yield (oi1, oi2)
-  }
 }

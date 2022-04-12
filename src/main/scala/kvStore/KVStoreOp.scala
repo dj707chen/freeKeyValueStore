@@ -1,4 +1,4 @@
-package freeMonad
+package kvStore
 
 /**
  * Computations

@@ -50,11 +50,11 @@ lazy val core =
     .in(file("."))
     .settings(commonSettings)
     .settings(
-      name := "freeMonad"
+      name := "kvStore"
     )
 
 lazy val commonSettings = Seq(
-  organization := "freeMonad",
+  organization := "kvStore",
   scalaVersion := scalaV,
   Compile / console / scalacOptions := Seq.empty,
   Test / console / scalacOptions := Seq.empty,
