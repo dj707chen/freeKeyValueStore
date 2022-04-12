@@ -10,6 +10,7 @@ import doobie.implicits._
 case class Country(name: String, code: String, pop: BigDecimal)
 
 object CountryData extends IOApp {
+
   def transactor(
       dbServer: String,
       user: String,
@@ -51,7 +52,6 @@ object CountryData extends IOApp {
       for {
         cnList <- largeCountries(xa)
         _      <- IO.pure(pprint.log(cnList))
-//        _      <- IO.println(s"\nLarge countries:\n$cnList")
         _      <- IO.println("")
       } yield ()
     } >> IO.unit.as(ExitCode.Success)
