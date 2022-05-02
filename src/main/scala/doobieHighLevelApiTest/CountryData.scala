@@ -4,6 +4,7 @@ import cats.effect.{ExitCode, IO, IOApp, Resource}
 import doobie._
 import doobie.hikari.HikariTransactor
 import doobie.implicits._
+import doobie.util.yolo.Yolo
 //import doobie.hikari._
 //import doobie.postgres.implicits._
 
@@ -17,13 +18,13 @@ object CountryData extends IOApp {
       pass: String
   ): Resource[IO, Transactor[IO]] =
     for {
-      ce <- ExecutionContexts.fixedThreadPool[IO](32) // our connect EC
+      ec <- ExecutionContexts.fixedThreadPool[IO](32) // our connect EC
       xa <- HikariTransactor.newHikariTransactor[IO](
               "org.postgresql.Driver", // driver classname
               s"jdbc:postgresql://$dbServer/test_db",
               user,
               pass,
-              ce                       // await connection here
+              ec                       // await connection here
             )
     } yield xa
 
@@ -36,6 +37,8 @@ object CountryData extends IOApp {
   // @formatter:on
   def largeCountries(xa: Transactor[IO]): IO[List[Country]] = {
     val q0: doobie.Query0[Country]             = biggerThan(1000000)
+    val yolo                                   = new Yolo(xa); import yolo._
+    q0.check
     val rs: doobie.ConnectionIO[List[Country]] = q0.to[List]
     val io: IO[List[Country]]                  = rs.transact(xa)
     io
@@ -51,8 +54,9 @@ object CountryData extends IOApp {
     xaResource.use { xa =>
       for {
         cnList <- largeCountries(xa)
+        _      <- IO.println("-" * 100)
         _      <- IO.pure(pprint.log(cnList))
-        _      <- IO.println("")
+        _      <- IO.println("-" * 100)
       } yield ()
     } >> IO.unit.as(ExitCode.Success)
   }

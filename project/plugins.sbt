@@ -7,3 +7,5 @@ addSbtPlugin("org.scalameta"             % "sbt-scalafmt"        % "2.4.3")
 addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat"        % "0.1.20")
 addSbtPlugin("org.lyranthe.sbt"          % "partial-unification" % "1.1.2")
 addSbtPlugin("com.banno"                 % "banno-sbt-plugin"    % "11.1.0")
+
+addSbtPlugin("com.github.xuwei-k" % "sbt-class-diagram" % "0.2.1")

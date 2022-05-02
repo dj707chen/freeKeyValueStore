@@ -48,6 +48,7 @@ val redis4CatsLog4Cats = "1.0.0"
 lazy val core =
   project
     .in(file("."))
+    .enablePlugins(ClassDiagramPlugin)
     .settings(commonSettings)
     .settings(
       name := "kvStore"
